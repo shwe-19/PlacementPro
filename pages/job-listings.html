@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Available Jobs | PlacementPro</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header>
+    <h2>Available Jobs</h2>
+    <nav>
+      <a href="student-dashboard.html">Back to Dashboard</a>
+    </nav>
+  </header>
+
+  <main style="padding: 40px;">
+    <div id="jobList"></div>
+  </main>
+
+  <script src="../script.js"></script>
+  <script>
+    const jobList = document.getElementById("jobList");
+    const jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+
+    if (jobs.length === 0) {
+      jobList.innerHTML = "<p>No jobs available right now.</p>";
+    } else {
+      jobs.forEach(job => {
+        const card = document.createElement("div");
+        card.className = "job-card";
+        card.style = "border: 1px solid #ccc; padding: 15px; margin-bottom: 20px;";
+        card.innerHTML = `
+          <h3>${job.title}</h3>
+          <p><strong>Company:</strong> ${job.company}</p>
+          <p>${job.description}</p>
+          <button onclick="applyToJob('${job.title}')">Apply</button>
+        `;
+        jobList.appendChild(card);
+      });
+    }
+
+    function applyToJob(jobId) {
+      const studentId = localStorage.getItem("userId");
+      const resume = localStorage.getItem("resume");
+
+      if (!studentId || !resume) {
+        alert("Please log in and upload your resume first.");
+        return;
+      }
+
+      let applications = JSON.parse(localStorage.getItem("applications")) || [];
+      const alreadyApplied = applications.some(app => app.studentId === studentId && app.jobId === jobId);
+
+      if (alreadyApplied) {
+        alert("You’ve already applied to this job.");
+        return;
+      }
+
+      applications.push({
+        studentId,
+        jobId,
+        resume,
+        placed: false
+      });
+
+      localStorage.setItem("applications", JSON.stringify(applications));
+      alert("✅ Application submitted for: " + jobId);
+    }
+  </script>
+</body>
+</html>

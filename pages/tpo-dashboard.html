@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TPO Dashboard | PlacementPro</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header>
+    <h2>TPO Dashboard</h2>
+    <nav>
+      <a href="analytics.html">View Analytics</a>
+      <a href="#" onclick="logout()">Logout</a>
+      <a href="review-applications.html">Review Applications</a>
+
+    </nav>
+  </header>
+
+  <main style="padding: 40px;">
+    <h3>Student Resume Submissions</h3>
+    <table border="1" width="100%" cellpadding="10" style="background: #fff;">
+      <thead>
+        <tr>
+          <th>Student ID</th>
+          <th>Resume File</th>
+          <th>Extracted Skills</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="studentTable">
+        <!-- Rows will be added by JS -->
+      </tbody>
+    </table>
+
+    <hr>
+    <h3>Post a New Job</h3>
+    <form id="jobForm">
+      <input type="text" id="jobTitle" placeholder="Job Title" required><br><br>
+      <input type="text" id="company" placeholder="Company Name" required><br><br>
+      <textarea id="jobDesc" placeholder="Job Description" required></textarea><br><br>
+      <button type="submit">Post Job</button>
+    </form>
+  </main>
+
+  <script src="../script.js"></script>
+  <script>
+    // Load student data
+    const studentTable = document.getElementById("studentTable");
+    const storedUserId = localStorage.getItem("userId");
+    const uploadedResume = localStorage.getItem("resume");
+
+    if (storedUserId && uploadedResume) {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${storedUserId}</td>
+        <td>${uploadedResume}</td>
+        <td id="skills-${storedUserId}">—</td>
+        <td><button onclick="extractSkills('${storedUserId}')">Extract</button></td>
+      `;
+      studentTable.appendChild(row);
+    } else {
+      studentTable.innerHTML = `<tr><td colspan="4">No submissions found</td></tr>`;
+    }
+
+    // Simulated skill extraction
+    function extractSkills(id) {
+      const mockSkills = ["JavaScript", "Python", "Teamwork", "Problem Solving"];
+      document.getElementById(`skills-${id}`).innerText = mockSkills.join(", ");
+    }
+
+    // Job form handling
+    const jobForm = document.getElementById("jobForm");
+    if (jobForm) {
+      jobForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const title = document.getElementById("jobTitle").value;
+        const company = document.getElementById("company").value;
+        const description = document.getElementById("jobDesc").value;
+
+        const jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+        jobs.push({ title, company, description });
+        localStorage.setItem("jobs", JSON.stringify(jobs));
+
+        alert("✅ Job posted successfully!");
+        jobForm.reset();
+      });
+    }
+  </script>
+</body>
+</html>

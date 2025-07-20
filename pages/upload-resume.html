@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Resume | PlacementPro</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header>
+    <h2>Upload Your Resume</h2>
+    <nav>
+      <a href="student-dashboard.html">Back to Dashboard</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </nav>
+  </header>
+
+  <main style="padding: 40px; text-align: center;">
+    <form id="resumeForm">
+      <input type="file" id="resumeFile" accept=".pdf,.doc,.docx" required><br><br>
+      <button type="submit">Upload Resume</button>
+    </form>
+  </main>
+
+  <script src="../script.js"></script>
+  <script>
+    const form = document.getElementById("resumeForm");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const fileInput = document.getElementById("resumeFile");
+      const file = fileInput.files[0];
+
+      if (!file) {
+        alert("Please select a resume to upload.");
+        return;
+      }
+
+      // ✅ Create a temporary Blob URL
+      const fileURL = URL.createObjectURL(file);
+
+      // ✅ Save file URL and file name
+      localStorage.setItem("resume", fileURL);
+      localStorage.setItem("resumeName", file.name);  // Optional: show filename later
+
+      alert("✅ Resume uploaded successfully.");
+      window.location.href = "student-dashboard.html";
+    });
+  </script>
+</body>
+</html>

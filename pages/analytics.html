@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Analytics | PlacementPro</title>
+  <link rel="stylesheet" href="../style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h2>Placement Analytics</h2>
+    <nav>
+      <a href="tpo-dashboard.html">Back to TPO Dashboard</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </nav>
+  </header>
+
+  <main style="text-align:center; padding: 40px;">
+    <h3>Students Placed vs Unplaced</h3>
+    <div id="chartWrapper">
+      <canvas id="placementChart" width="300" height="300"></canvas>
+    </div>
+    <p id="noDataMsg" style="display: none; color: gray;">No placement data available.</p>
+  </main>
+
+  <script src="../script.js"></script>
+  <script>
+    const canvas = document.getElementById("placementChart");
+    const ctx = canvas.getContext("2d");
+
+    const applications = JSON.parse(localStorage.getItem("applications")) || [];
+
+    const placed = applications.filter(app => app.placed).length;
+    const total = applications.length;
+    const unplaced = total - placed;
+
+    if (total === 0) {
+      canvas.style.display = "none";
+      document.getElementById("noDataMsg").style.display = "block";
+    } else {
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Placed', 'Unplaced'],
+          datasets: [{
+            data: [placed, unplaced],
+            backgroundColor: ['#2ecc71', '#e74c3c']
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top'
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

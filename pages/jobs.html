@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Available Jobs | PlacementPro</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header>
+    <h2>Available Jobs</h2>
+    <nav>
+      <a href="student-dashboard.html">Back to Dashboard</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </nav>
+  </header>
+
+  <main style="padding: 40px;">
+    <div id="jobsContainer"></div>
+  </main>
+
+  <script src="../script.js"></script>
+  <script>
+    const jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+    const container = document.getElementById("jobsContainer");
+
+    if (jobs.length === 0) {
+      container.innerHTML = "<p>No jobs posted yet.</p>";
+    } else {
+      jobs.forEach((job, index) => {
+        const div = document.createElement("div");
+        div.style.marginBottom = "20px";
+        div.style.border = "1px solid #ccc";
+        div.style.padding = "10px";
+        div.innerHTML = `
+          <h3>${job.title} at ${job.company}</h3>
+          <p>${job.description}</p>
+          <button onclick="applyJob(${index})">Apply</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function applyJob(index) {
+      alert("✅ Application submitted for: " + jobs[index].title);
+    }
+  </script>
+</body>
+</html>

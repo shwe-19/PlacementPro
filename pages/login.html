@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login | PlacementPro</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <header>
+    <h2>Login to PlacementPro</h2>
+  </header>
+
+  <main style="text-align:center; padding: 50px;">
+    <label>Select your role:</label><br>
+    <select id="role">
+      <option value="student">Student</option>
+      <option value="tpo">TPO</option>
+    </select><br><br>
+
+    <input type="text" id="userId" placeholder="Enter your ID" /><br><br>
+
+    <button onclick="login()">Login</button>
+  </main>
+
+  <script src="../script.js"></script>
+  <script>
+    function login() {
+      const role = document.getElementById("role").value;
+      const userId = document.getElementById("userId").value;
+      if (!userId) {
+        alert("Please enter your ID.");
+        return;
+      }
+      localStorage.setItem("userId", userId);
+      localStorage.setItem("role", role);
+      if (role === "student") {
+        window.location.href = "student-dashboard.html";
+      } else {
+        window.location.href = "tpo-dashboard.html";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard | PlacementPro</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header>
+    <h2>Welcome, <span id="studentName"></span></h2>
+    <nav>
+      <a href="upload-resume.html">Upload Resume</a>
+      <a href="job-listings.html">Browse & Apply for Jobs</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </nav>
+  </header>
+
+  <main style="padding: 40px;">
+    <h3>Your Placement Info</h3>
+    <p><strong>Resume:</strong> <span id="resumeStatus">Not Uploaded</span></p>
+    <p><strong>Application Status:</strong> <span id="applicationStatus">Not Applied</span></p>
+
+    <h3 style="margin-top: 40px;">Your Job Applications</h3>
+    <div id="applicationList">
+      <p>No job applications yet.</p>
+    </div>
+  </main>
+
+  <script src="../script.js"></script>
+  <script>
+    const studentId = getUserId();
+    document.getElementById("studentName").innerText = studentId || "Student";
+
+    const resume = localStorage.getItem("resume");
+    const resumeStatus = document.getElementById("resumeStatus");
+
+    if (resume) {
+      resumeStatus.innerHTML = `<a href="${resume}" target="_blank">View Resume</a>`;
+    } else {
+      resumeStatus.innerText = "Not Uploaded";
+    }
+
+    const apps = JSON.parse(localStorage.getItem("applications")) || [];
+    const myApps = apps.filter(app => app.studentId === studentId);
+
+    const appStatus = document.getElementById("applicationStatus");
+    appStatus.innerText = myApps.length > 0 ? "Applied" : "Not Applied";
+
+    const applicationList = document.getElementById("applicationList");
+    if (myApps.length > 0) {
+      applicationList.innerHTML = `
+        <table border="1" cellpadding="10" width="100%" style="background:#fff;">
+          <thead>
+            <tr>
+              <th>Job Title</th>
+              <th>Resume</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${myApps.map(app => `
+              <tr>
+                <td>${app.jobId}</td>
+                <td><a href="${app.resume}" target="_blank">View Resume</a></td>
+                <td>${app.placed ? "✅ Placed" : "⏳ Pending"}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Registration | PlacementPro</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <header>
+    <h2>Student Registration</h2>
+    <nav>
+      <a href="login.html">← Back to Login</a>
+    </nav>
+  </header>
+
+  <main style="padding: 40px; text-align: center;">
+    <form id="registerForm" style="max-width: 600px; margin: 0 auto;">
+      <h3>Enter Student Details</h3>
+
+      <input type="text" id="name" placeholder="Full Name" required><br><br>
+      <input type="text" id="rollno" placeholder="Roll Number" required><br><br>
+      <input type="date" id="birthdate" placeholder="Date of Birth" required><br><br>
+      <input type="text" id="department" placeholder="Department (e.g., Engineering)" required><br><br>
+      <input type="text" id="branch" placeholder="Branch (e.g., IT, CS)" required><br><br>
+      <input type="text" id="address" placeholder="Address" required><br><br>
+      <input type="tel" id="phone" placeholder="Phone Number" pattern="[0-9]{10}" required><br><br>
+      <input type="email" id="email" placeholder="Email ID" required><br><br>
+
+      <button type="submit">Register</button>
+    </form>
+  </main>
+
+  <script src="../script.js"></script>
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const student = {
+        name: document.getElementById("name").value.trim(),
+        rollno: document.getElementById("rollno").value.trim(),
+        birthdate: document.getElementById("birthdate").value,
+        department: document.getElementById("department").value.trim(),
+        branch: document.getElementById("branch").value.trim(),
+        address: document.getElementById("address").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        placed: false
+      };
+
+      if (!student.name || !student.rollno || !student.birthdate || !student.department || !student.branch || !student.address || !student.phone || !student.email) {
+        alert("Please fill out all fields.");
+        return;
+      }
+
+      const allStudents = JSON.parse(localStorage.getItem("allStudents")) || [];
+      allStudents.push(student);
+      localStorage.setItem("allStudents", JSON.stringify(allStudents));
+
+      localStorage.setItem("userId", student.rollno);
+      localStorage.setItem("role", "student");
+
+      alert("✅ Registration successful!");
+      window.location.href = "student-dashboard.html";
+    });
+  </script>
+</body>
+</html>

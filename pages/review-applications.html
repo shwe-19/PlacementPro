@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Review Applications | PlacementPro</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header>
+    <h2>Review Job Applications</h2>
+    <nav>
+      <a href="tpo-dashboard.html">Back to Dashboard</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </nav>
+  </header>
+
+  <main style="padding: 40px;">
+    <h3>All Applications</h3>
+    <table border="1" width="100%" cellpadding="10" style="background: #fff;">
+      <thead>
+        <tr>
+          <th>Student ID</th>
+          <th>Job Title</th>
+          <th>Resume</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="appTable"></tbody>
+    </table>
+  </main>
+
+  <script src="../script.js"></script>
+  <script>
+    const appTable = document.getElementById("appTable");
+    let applications = JSON.parse(localStorage.getItem("applications")) || [];
+
+    if (applications.length === 0) {
+      appTable.innerHTML = `<tr><td colspan="5">No applications found.</td></tr>`;
+    } else {
+      applications.forEach((app, index) => {
+        const row = document.createElement("tr");
+
+        const resumeLink = app.resume
+          ? `<a href="${app.resume}" target="_blank">View Resume</a>`
+          : `<span style="color: gray;">Not Uploaded</span>`;
+
+        row.innerHTML = `
+          <td>${app.studentId}</td>
+          <td>${app.jobId}</td>
+          <td>${resumeLink}</td>
+          <td>${app.placed ? "✅ Placed" : "⏳ Pending"}</td>
+          <td>
+            <button onclick="markPlaced(${index})" ${app.placed ? "disabled" : ""}>
+              Mark as Placed
+            </button>
+          </td>
+        `;
+        appTable.appendChild(row);
+      });
+    }
+
+    function markPlaced(index) {
+      applications[index].placed = true;
+      localStorage.setItem("applications", JSON.stringify(applications));
+      alert("✅ Student marked as placed!");
+      location.reload();
+    }
+  </script>
+</body>
+</html>

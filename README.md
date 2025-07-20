@@ -31,7 +31,7 @@ Every student deserves a fair chance at getting placed. But managing resumes, jo
 ---
 
 ## 📸 Screenshots
-![Registration Page](assets/Screenshot%202025-07-20%20114034.png)
+
 ![Student Dashboard](assets/Screenshot%202025-07-20%20113640.png)
 ![Resume Upload](assets/Screenshot%202025-07-20%20113702.png)
 ![Available Jobs](assets/Screenshot%202025-07-20%20113726.png)

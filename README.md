@@ -33,7 +33,8 @@ Every student deserves a fair chance at getting placed. But managing resumes, jo
 ## 📸 Screenshots
 
 ### 🏠 Landing Page
-![Landing Page](assets/Screenshot%202025-07-20%20111134.png)
+![Student Dashboard](assets/Screenshot%202025-07-20%20113640.png)
+
 
 ---
 
@@ -43,32 +44,36 @@ Every student deserves a fair chance at getting placed. But managing resumes, jo
 ---
 
 ### 📄 Resume Upload Page
-![Resume Upload](assets/Screenshot%202025-07-20%20113702.png)
+![Job Listings](assets/Screenshot%202025-07-20%20113726.png)
+
 
 ---
 
 ### 💼 Available Jobs
-![Job Listings](assets/Screenshot%202025-07-20%20113726.png)
-
----
-
-### 📝 Applied Jobs Status
-![Applications](assets/Screenshot%202025-07-20%20113836.png)
-
----
-
-### 🧑‍💼 TPO Dashboard
 ![TPO Dashboard](assets/Screenshot%202025-07-20%20113905.png)
 
 ---
 
+### 📝 Applied Jobs Status
+![Job Listings](assets/Screenshot%202025-07-20%20113726.png)
+
+
+---
+
+### 🧑‍💼 TPO Dashboard
+![Analytics Chart](assets/Screenshot%202025-07-20%20114015.png)
+
+---
+
 ### 📋 Review Applications
-![Review Applications](assets/Screenshot%202025-07-20%20113933.png)
+![Submit Resume](assets/Screenshot%202025-07-20%20114051.png)
+
 
 ---
 
 ### 📊 Placement Analytics (Chart)
-![Analytics Chart](assets/Screenshot%202025-07-20%20114015.png)
+![Registration](assets/Screenshot%202025-07-20%20114034.png)
+
 
 ---
 
@@ -78,7 +83,8 @@ Every student deserves a fair chance at getting placed. But managing resumes, jo
 ---
 
 ### 📤 Submit Resume
-![Submit Resume](assets/Screenshot%202025-07-20%20114051.png)
+![Review Applications](assets/Screenshot%202025-07-20%20113933.png)
+
 
 ---
 
